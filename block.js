@@ -1365,19 +1365,15 @@ URL: 0
 },
 }, 'text', (sprite, script) => {
 const url = script.getValue('URL', script);
-
 if (window.urlAudio) {
 window.urlAudio.pause();
 window.urlAudio.currentTime = 0;
 }
-
 window.urlAudio = new Audio(url);
-
 window.urlAudio.play().catch((error) => {
 console.error('소리 재생 오류:', error);
 alert('소리를 재생할 수 없습니다. mp3, wav, ogg 직접 주소인지 확인하세요.');
 });
-
 return script.callReturn();
 });
 

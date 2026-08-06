@@ -1341,135 +1341,43 @@ VALUE: 0
 return prompt(value)
 }, 'basic_string_field');
 
-addBlock('url_sound_play', '%1 URL 소리 재생', {
+addBlock('url_sound_play', '%1 주소의 소리 재생하기', {
 color: EntryStatic.colorSet.block.default.HARDWAR,
 outerLine: EntryStatic.colorSet.block.darken.HARDWAR
 }, {
-params:[
+params: [
 {
-type:'Block',
-accept:'string'
+type: 'Block',
+accept: 'string'
 }
 ],
-def:[
+def: [
 {
-type:'text',
-params:['https://example.com/music.mp3']
+type: "text",
+params: ['https://example.com/music.mp3']
 }
 ],
-map:{
-URL:0
-}
+_class: 'box_',
+map: {
+URL: 0
 },
-'text',
-(sprite,script)=>{
-const url=script.getValue('URL',script);
-if(urlAudio){
-urlAudio.pause();
-}
-urlAudio=new Audio(url);
-urlAudio.play();
-return script.callReturn();
-}
-);
+}, 'text', (sprite, script) => {
+const url = script.getValue('URL', script);
 
-addBlock('url_sound_loop', '%1 URL 소리 반복재생', {
-color: EntryStatic.colorSet.block.default.HARDWAR,
-outerLine: EntryStatic.colorSet.block.darken.HARDWAR
-},
-{
-params:[
-{
-type:'Block',
-accept:'string'
+if (window.urlSoundAudio) {
+window.urlSoundAudio.pause();
+window.urlSoundAudio.currentTime = 0;
 }
-],
-def:[
-{
-type:'text',
-params:['https://example.com/music.mp3']
-}
-],
-map:{
-URL:0
-}
-},
-'text',
-(sprite,script)=>{
-const url=script.getValue('URL',script);
-if(urlAudio){
-urlAudio.pause();
-}
-urlAudio=new Audio(url);
-urlAudio.loop=true;
-urlAudio.play();
-return script.callReturn();
-}
-);
 
-addBlock('url_sound_pause', 'URL 소리 일시정지', {
-color: EntryStatic.colorSet.block.default.HARDWAR,
-outerLine: EntryStatic.colorSet.block.darken.HARDWAR
-},
-{
-params:[],
-def:[],
-map:{}
-},
-'text',
-()=>{
-if(urlAudio){
-urlAudio.pause();
-}
-}
-);
+window.urlSoundAudio = new Audio(url);
 
-addBlock('url_sound_stop', 'URL 소리 정지', {
-color: EntryStatic.colorSet.block.default.HARDWAR,
-outerLine: EntryStatic.colorSet.block.darken.HARDWAR
-},
-{
-params:[],
-def:[],
-map:{}
-},
-'text',
-()=>{
-if(urlAudio){
-urlAudio.pause();
-urlAudio.currentTime=0;
-}
-}
-);
+window.urlSoundAudio.play().catch((error) => {
+console.error('소리 재생 오류:', error);
+alert('소리를 재생할 수 없습니다. mp3, wav, ogg 직접 주소인지 확인하세요.');
+});
 
-addBlock('url_sound_volume', 'URL 소리 볼륨 %1', {
-color: EntryStatic.colorSet.block.default.HARDWAR,
-outerLine: EntryStatic.colorSet.block.darken.HARDWAR
-},
-{
-params:[
-{
-type:'Block',
-accept:'string'
-}
-],
-def:[
-{
-type:'text',
-params:['100']
-}
-],
-map:{
-VOL:0
-}
-},
-'text',
-(sprite,script)=>{
-if(urlAudio){
-urlAudio.volume=Math.max(0,Math.min(1,Number(script.getValue('VOL',script))/100));
-}
-}
-);
+return script.callReturn()
+});
 
 
 
@@ -1492,11 +1400,7 @@ category: 'API', blocks: [
 'entry_console',
 'entry_console_clear',
 'change_var', 'entry_console_writing', 'finish',
-'likeList', 'boost_mode', 'mouse','didScroll','scrollHandle','box','stop_button(click)_start','open_win','pc','PromptConfirm','user.username','change(X)','mypage','asdf','url_sound_play',
-'url_sound_loop',
-'url_sound_pause',
-'url_sound_stop',
-'url_sound_volume'
+'likeList', 'boost_mode', 'mouse','didScroll','scrollHandle','box','stop_button(click)_start','open_win','pc','PromptConfirm','user.username','change(X)','mypage','asdf','url_sound_play'
 ]
 });
 

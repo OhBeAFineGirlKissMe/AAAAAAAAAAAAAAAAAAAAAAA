@@ -1473,7 +1473,7 @@ urlAudio.volume=Math.max(0,Math.min(1,Number(script.getValue('VOL',script))/100)
 
 
 
-///////////////////블럭 추가끝
+///////////////////블럭 추가끝:0
 
 
 Entry.staticBlocks.push({

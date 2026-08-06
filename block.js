@@ -1341,155 +1341,133 @@ VALUE: 0
 return prompt(value)
 }, 'basic_string_field');
 
-addBlock(
-'url_sound_play',
-'%1 URL 소리 재생',
+addBlock('url_sound_play', '%1 URL 소리 재생', {
+color: EntryStatic.colorSet.block.default.HARDWAR,
+outerLine: EntryStatic.colorSet.block.darken.HARDWAR
+}, {
+params:[
 {
-    color: EntryStatic.colorSet.block.default.HARDWAR,
-    outerLine: EntryStatic.colorSet.block.darken.HARDWAR
-},
+type:'Block',
+accept:'string'
+}
+],
+def:[
 {
-    params:[
-        {
-            type:'Block',
-            accept:'string'
-        }
-    ],
-    def:[
-        {
-            type:'text',
-            params:['https://example.com/music.mp3']
-        }
-    ],
-    map:{
-        URL:0
-    }
+type:'text',
+params:['https://example.com/music.mp3']
+}
+],
+map:{
+URL:0
+}
 },
 'text',
 (sprite,script)=>{
-    const url=script.getValue('URL',script);
-
-    if(urlAudio){
-        urlAudio.pause();
-    }
-
-    urlAudio=new Audio(url);
-    urlAudio.play();
-
-    return script.callReturn();
+const url=script.getValue('URL',script);
+if(urlAudio){
+urlAudio.pause();
+}
+urlAudio=new Audio(url);
+urlAudio.play();
+return script.callReturn();
 }
 );
 
-addBlock(
-'url_sound_loop',
-'%1 URL 소리 반복재생',
-{
-    color: EntryStatic.colorSet.block.default.HARDWAR,
-    outerLine: EntryStatic.colorSet.block.darken.HARDWAR
+addBlock('url_sound_loop', '%1 URL 소리 반복재생', {
+color: EntryStatic.colorSet.block.default.HARDWAR,
+outerLine: EntryStatic.colorSet.block.darken.HARDWAR
 },
 {
-    params:[
-        {
-            type:'Block',
-            accept:'string'
-        }
-    ],
-    def:[
-        {
-            type:'text',
-            params:['https://example.com/music.mp3']
-        }
-    ],
-    map:{
-        URL:0
-    }
+params:[
+{
+type:'Block',
+accept:'string'
+}
+],
+def:[
+{
+type:'text',
+params:['https://example.com/music.mp3']
+}
+],
+map:{
+URL:0
+}
 },
 'text',
 (sprite,script)=>{
-    const url=script.getValue('URL',script);
-
-    if(urlAudio){
-        urlAudio.pause();
-    }
-
-    urlAudio=new Audio(url);
-    urlAudio.loop=true;
-    urlAudio.play();
-
-    return script.callReturn();
+const url=script.getValue('URL',script);
+if(urlAudio){
+urlAudio.pause();
+}
+urlAudio=new Audio(url);
+urlAudio.loop=true;
+urlAudio.play();
+return script.callReturn();
 }
 );
 
-addBlock(
-'url_sound_pause',
-'URL 소리 일시정지',
-{
-    color: EntryStatic.colorSet.block.default.HARDWAR,
-    outerLine: EntryStatic.colorSet.block.darken.HARDWAR
+addBlock('url_sound_pause', 'URL 소리 일시정지', {
+color: EntryStatic.colorSet.block.default.HARDWAR,
+outerLine: EntryStatic.colorSet.block.darken.HARDWAR
 },
 {
-    params:[],
-    def:[],
-    map:{}
+params:[],
+def:[],
+map:{}
 },
 'text',
 ()=>{
-    if(urlAudio){
-        urlAudio.pause();
-    }
+if(urlAudio){
+urlAudio.pause();
+}
 }
 );
 
-addBlock(
-'url_sound_stop',
-'URL 소리 정지',
-{
-    color: EntryStatic.colorSet.block.default.HARDWAR,
-    outerLine: EntryStatic.colorSet.block.darken.HARDWAR
+addBlock('url_sound_stop', 'URL 소리 정지', {
+color: EntryStatic.colorSet.block.default.HARDWAR,
+outerLine: EntryStatic.colorSet.block.darken.HARDWAR
 },
 {
-    params:[],
-    def:[],
-    map:{}
+params:[],
+def:[],
+map:{}
 },
 'text',
 ()=>{
-    if(urlAudio){
-        urlAudio.pause();
-        urlAudio.currentTime=0;
-    }
+if(urlAudio){
+urlAudio.pause();
+urlAudio.currentTime=0;
+}
 }
 );
 
-addBlock(
-'url_sound_volume',
-'URL 소리 볼륨 %1',
-{
-    color: EntryStatic.colorSet.block.default.HARDWAR,
-    outerLine: EntryStatic.colorSet.block.darken.HARDWAR
+addBlock('url_sound_volume', 'URL 소리 볼륨 %1', {
+color: EntryStatic.colorSet.block.default.HARDWAR,
+outerLine: EntryStatic.colorSet.block.darken.HARDWAR
 },
 {
-    params:[
-        {
-            type:'Block',
-            accept:'string'
-        }
-    ],
-    def:[
-        {
-            type:'text',
-            params:['100']
-        }
-    ],
-    map:{
-        VOL:0
-    }
+params:[
+{
+type:'Block',
+accept:'string'
+}
+],
+def:[
+{
+type:'text',
+params:['100']
+}
+],
+map:{
+VOL:0
+}
 },
 'text',
 (sprite,script)=>{
-    if(urlAudio){
-        urlAudio.volume=Math.max(0,Math.min(1,Number(script.getValue('VOL',script))/100));
-    }
+if(urlAudio){
+urlAudio.volume=Math.max(0,Math.min(1,Number(script.getValue('VOL',script))/100));
+}
 }
 );
 

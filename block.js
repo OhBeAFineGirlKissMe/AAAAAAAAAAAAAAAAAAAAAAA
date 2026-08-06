@@ -1341,6 +1341,8 @@ VALUE: 0
 return prompt(value)
 }, 'basic_string_field');
 
+let window.urlAudio = null;
+
 addBlock('url_sound_play', '%1 주소의 소리 재생하기', {
 color: EntryStatic.colorSet.block.default.HARDWAR,
 outerLine: EntryStatic.colorSet.block.darken.HARDWAR
@@ -1353,7 +1355,7 @@ accept: 'string'
 ],
 def: [
 {
-type: "text",
+type: 'text',
 params: ['https://example.com/music.mp3']
 }
 ],
@@ -1364,21 +1366,20 @@ URL: 0
 }, 'text', (sprite, script) => {
 const url = script.getValue('URL', script);
 
-if (window.urlSoundAudio) {
-window.urlSoundAudio.pause();
-window.urlSoundAudio.currentTime = 0;
+if (window.urlAudio) {
+window.urlAudio.pause();
+window.urlAudio.currentTime = 0;
 }
 
-window.urlSoundAudio = new Audio(url);
+window.urlAudio = new Audio(url);
 
-window.urlSoundAudio.play().catch((error) => {
+window.urlAudio.play().catch((error) => {
 console.error('소리 재생 오류:', error);
 alert('소리를 재생할 수 없습니다. mp3, wav, ogg 직접 주소인지 확인하세요.');
 });
 
-return script.callReturn()
+return script.callReturn();
 });
-
 
 
 ///////////////////블럭 추가끝:0
